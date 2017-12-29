@@ -8,7 +8,7 @@ export default function HomePage() {
           This is the home page.
         </div>
         <aside className="col-sm-12  col-lg-4">
-          This is the sidebar.
+          This is the special sidebar.
         </aside>
       </div>
     </section>
