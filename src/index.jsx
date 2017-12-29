@@ -1,6 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
+import 'bootstrap/dist/css/bootstrap.css';
+import './css/soundshare.scss'
+
 import Template from './components/Template';
 
 const renderApp = (Component) => {
