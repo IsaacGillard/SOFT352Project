@@ -1,24 +1,30 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
-import 'bootstrap/dist/css/bootstrap.css';
-import './css/soundshare.scss'
 
-import Template from './components/Template';
+import {AppContainer} from 'react-hot-loader';
+import {Provider} from 'react-redux';
+import {render} from 'react-dom';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import './css/soundshare.scss';
+
+import Store from './store';
+import TemplateContainer from './components/TemplateContainer';
 
 const renderApp = (Component) => {
   render(
     <AppContainer>
-      <Component Headline="Test Headline" count={1234} showCount />
+      <Provider store={Store}>
+        <Component />
+      </Provider>
     </AppContainer>,
     document.querySelector('#react-app'),
   );
 };
 
-renderApp(Template);
+renderApp(TemplateContainer);
 
 if (module && module.hot) {
-  module.hot.accept('./components/Template', () => {
-    renderApp(Template);
+  module.hot.accept('./components/TemplateContainer', () => {
+    renderApp(TemplateContainer);
   });
 }
