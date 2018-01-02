@@ -7,14 +7,20 @@ import {render} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/soundshare.scss';
 
-import Store from './store';
+import DevTools from './components/shared/DevTools';
+import configureStore from './store';
 import TemplateContainer from './components/TemplateContainer';
+
+const Store = configureStore();
 
 const renderApp = (Component) => {
   render(
     <AppContainer>
       <Provider store={Store}>
-        <Component />
+        <div>
+          <Component />
+          <DevTools />
+        </div>
       </Provider>
     </AppContainer>,
     document.querySelector('#react-app'),
