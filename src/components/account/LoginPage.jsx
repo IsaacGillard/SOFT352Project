@@ -1,15 +1,17 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {AvForm, AvGroup, AvInput, AvFeedback} from 'availity-reactstrap-validation';
+import {Button, Label} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
     // bound functions
-    this.compileFormData = this.compileFormData.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
 
     // component state
     this.state = {
@@ -26,7 +28,7 @@ export default class LoginPage extends React.Component {
   // catch enter clicks
   handleKeyPress(target) {
     if (target.charCode === 13) {
-      this.compileFormData();
+      this.handleValidSubmit();
     }
   }
 
@@ -35,8 +37,8 @@ export default class LoginPage extends React.Component {
     this.setState({ password: e.target.value });
   }
 
-  compileFormData() {
-
+  // handle submission when all data is valid
+  handleValidSubmit() {
     const { loginFunction } = this.props;
     const formData = this.state;
     loginFunction(formData);
@@ -46,33 +48,38 @@ export default class LoginPage extends React.Component {
     return (
       <div className="row justify-content-center">
         <div className="col-10 col-sm-7 col-md-5 col-lg-4">
-          <Form>
-            <FormGroup>
+          <AvForm onValidSubmit={this.handleValidSubmit}>
+            <AvGroup>
               <Label for="exampleEmail">Email</Label>
-              <Input
-                type="email"
-                name="email"
+              <AvInput
                 id="userEmail"
-                placeholder="noreply@soundshare.com"
-                value={this.state.email}
+                name="email"
                 onChange={this.handleEmailChange}
                 onKeyPress={this.handleKeyPress}
+                placeholder="noreply@soundshare.com"
+                required
+                type="email"
+                value={this.state.email}
               />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="examplePassword"
-                placeholder="password"
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-                onKeyPress={this.handleKeyPress}
-              />
-            </FormGroup>
-            <Button onClick={this.compileFormData}>Log In</Button>
-          </Form>
+              <AvFeedback>A valid email address is required.</AvFeedback>
+            </AvGroup>
+            <AvGroup>
+             <Label for="userPassword">Password</Label>
+             <AvInput
+               id="userPassword"
+               name="password"
+               onChange={this.handlePasswordChange}
+               onKeyPress={this.handleKeyPress}
+               placeholder="password"
+               required
+               type="password"
+               value={this.state.password}
+             />
+             <AvFeedback>Password is required to log in</AvFeedback>
+             <span><Link to="/account/reset-password">Forgot your password?</Link></span>
+           </AvGroup>
+            <Button color="primary">Log In</Button>
+          </AvForm>
         </div>
       </div>
     );
