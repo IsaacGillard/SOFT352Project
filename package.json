@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "start-prod": "SET NODE_ENV=production&& node ./bin/www",
     "test": "jest",
-    "build-prod": "SET NODE_ENV=production&&webpack -p --config webpack.config.js"
+    "build-prod": "SET NODE_ENV=production&&webpack -p --config webpack.config.babel.js"
   },
   "dependencies": {
     "availity-reactstrap-validation": "^1.4.3",
@@ -14,6 +14,7 @@
     "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "~1.18.2",
