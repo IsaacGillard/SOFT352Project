@@ -22,6 +22,7 @@ router.get('/checksession', (req, res) => {
   return res.send(JSON.stringify({}));
 });
 
+
 // Get to /logout
 router.get('/logout', (req, res) => {
   req.logout();

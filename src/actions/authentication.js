@@ -20,7 +20,7 @@ export const passwordSaveSuccess = () => ({ type: 'AUTHENTICATION_PASSWORD_SAVE_
 export const sessionCheckFailure = () => ({ type: 'AUTHENTICATION_SESSION_CHECK_FAILURE' });
 export const sessionCheckSuccess = json => ({ type: 'AUTHENTICATION_SESSION_CHECK_SUCCESS', json });
 
-// check user session
+// Check User Session
 export function checkSession() {
   return async (dispatch) => {
     // contact the API
@@ -35,6 +35,7 @@ export function checkSession() {
     )
     .then((response) => {
       if (response.status === 200) {
+        console.log("success");
         return response.json();
       }
       return null;
@@ -165,6 +166,7 @@ export function logUserOut() {
     })
     .catch((error) => {
       dispatch(logoutFailure(new Error(error)));
+      console.log("error");
     });
 
     // turn off spinner

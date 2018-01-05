@@ -12,7 +12,7 @@ class HeaderContainer extends React.Component {
   }
 
   logUserOutFunction() {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch(logUserOut());
   }
 
