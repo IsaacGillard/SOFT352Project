@@ -97,7 +97,7 @@ export default class AlbumsPage extends React.Component {
               <AvGroup>
                 <h2><Label for="search">Search Albums</Label></h2>
                 <p>
-                  Find albums you own and add them to your MusicList.
+                  Find albums you own and add them to your List.
                   You can search by album title or artist name.
                 </p>
                 <AvInput
