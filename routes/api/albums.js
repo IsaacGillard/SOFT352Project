@@ -138,9 +138,20 @@ router.post('/add', async (req, res) => {
   } catch (err) {
     result = res.json({ error: 'There was an error saving the album to the database. Please try again.' });
   }
-
   return result;
+});
 
+// POST to /populate
+router.post('/populate', (req, res, next) => {
+  // Get album data from an array
+  Album.find({
+    discogsId: { $in: req.body },
+  }, (err, albums) => {
+    if (err) {
+      return res.json({ error: err.message });
+    }
+    return res.json(albums);
+  });
 });
 
 // POST to /search

@@ -79,8 +79,20 @@ router.post('/add', async (req, res) => {
   } catch (err) {
     result = res.json({ error: 'There was an error saving the artist to the database. Please try again.' });
   }
-
   return result;
+});
+
+// GET to /populate
+router.post('/populate', (req, res, next) => {
+  // Get artist data from an array
+  Artist.find({
+    discogsId: { $in: req.body },
+  }, (err, artists) => {
+    if (err) {
+      return res.json({ error: err.message });
+    }
+    return res.json(artists);
+  });
 });
 
 // POST to /search
