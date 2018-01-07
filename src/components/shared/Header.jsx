@@ -66,7 +66,7 @@ export default class Header extends React.Component {
               </NavItem>
               { username && username !== '' ?
                 <NavItem>
-                  <NavLink tag={Link} to={'/list/${username}'}>My List</NavLink>
+                  <NavLink tag={Link} to={`/list/${username}`}>My List</NavLink>
                 </NavItem>
               : null }
             </Nav>
