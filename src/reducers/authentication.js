@@ -20,11 +20,13 @@ export default function reducer(state = initialState, action) {
     case 'AUTHENTICATION_LOGIN_FAILURE':
     case 'AUTHENTICATION_SESSION_CHECK_FAILURE':
     case 'AUTHENTICATION_LOGOUT_SUCCESS': {
+      console.log("Logout reached reducer");
       const newState = Object.assign({}, initialState);
       return newState;
     }
     case 'AUTHENTICATION_LOGIN_SUCCESS':
     case 'AUTHENTICATION_SESSION_CHECK_SUCCESS': {
+      console.log("Logout failed");
       const newState = Object.assign({}, state);
       newState.firstName = action.json.firstName;
       newState.id = action.json._id;
@@ -36,7 +38,6 @@ export default function reducer(state = initialState, action) {
     }
     case 'AUTHENTICATION_LOGOUT_FAILURE':
     case 'AUTHENTICATION_REGISTRATION_FAILURE': {
-      console.log("error2");
       return state;
     }
     case 'AUTHENTICATION_PASSWORD_RESET_CLEAR':

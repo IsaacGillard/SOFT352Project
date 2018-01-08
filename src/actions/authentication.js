@@ -138,10 +138,10 @@ export function logUserIn(userData) {
   };
 }
 
-// log user out
+// Log User Out
 export function logUserOut() {
   return async (dispatch) => {
-    // clear error box
+    // clear the error box if it's displayed
     dispatch(clearError());
 
     // turn on spinner
@@ -160,13 +160,15 @@ export function logUserOut() {
     .then((response) => {
       if (response.status === 200) {
         dispatch(logoutSuccess());
+        console.log("Logout Success");
       } else {
-      dispatch(logoutFailure(new Error(responce.status)));
+        dispatch(logoutFailure(new Error(response.status)));
+        console.log("Logout Failure");
       }
     })
     .catch((error) => {
       dispatch(logoutFailure(new Error(error)));
-      console.log("error");
+      console.log("Logout Failure Catch");
     });
 
     // turn off spinner

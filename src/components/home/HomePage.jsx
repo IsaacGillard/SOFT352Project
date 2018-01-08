@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Label, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import Sidebar from '../shared/Sidebar';
@@ -6,20 +7,14 @@ import Sidebar from '../shared/Sidebar';
 export default function HomePage(props) {
   const { latestAlbum } = props;
   return (
-    <div className="row">
-      <div className="col-sm-12 col-md-8">
-        <h1>Welcome to MusicList</h1>
+    <div className="row justify-content-center">
+      <div className="col-10 col-sm-7 col-md-5 col-lg-4">
+        <h1>Welcome to SoundShare!</h1>
                 <p>
-                  This is a simple React app where you can look up artists you like and albums you own,
-                  and add them to your list. Got rid of an album or decided you're not that fond of an
-                  artist? Just remove them.
+                  SoundShare lets you save your favourite albums and artists to you own public profile from the Discogs database.
                 </p>
-                <ul>
-                  <li><h2><Link to="/artists">Search Artists</Link></h2></li>
-                  <li><h2><Link to="/albums">Search Albums</Link></h2></li>
-                </ul>
+                <Button id="signUpButton" color="primary" size="lg" tag={Link} to="/account/register">Sign Up</Button>
       </div>
-      <Sidebar latestAlbum={latestAlbum} />
     </div>
   );
 }

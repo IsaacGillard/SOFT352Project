@@ -1,6 +1,8 @@
 const appConfig = require('../../config.js');
 const crypto = require('crypto');
+//onst createDOMPurify = require('dompurify');
 const express = require('express');
+//const { JSDOM } = require('jsdom');
 const mailgun = require('mailgun-js')({
   apiKey: appConfig.mailgun.apiKey,
   domain: appConfig.mailgun.domain,
@@ -11,7 +13,7 @@ const User = require('../../models/user.js');
 
 const router = express.Router();
 
-//Configure promises
+// configure mongoose promises
 mongoose.Promise = global.Promise;
 
 // GET to /checksession
@@ -22,21 +24,23 @@ router.get('/checksession', (req, res) => {
   return res.send(JSON.stringify({}));
 });
 
-
-// Get to /logout
+// GET to /logout
 router.get('/logout', (req, res) => {
+  console.log("Logout reached get");
   req.logout();
+
   return res.send(JSON.stringify(req.user));
 });
 
 // POST to /login
 router.post('/login', async (req, res) => {
-  //look up users email
+  // look up the user by their email
   const query = User.findOne({ email: req.body.email });
   const foundUser = await query.exec();
 
-  //if found, add username to body
-  if ( foundUser ){ req.body.username = foundUser.username; }
+  // if they exist, they'll have a username, so add that to our body
+  if (foundUser) { req.body.username = foundUser.username; }
+
   passport.authenticate('local')(req, res, () => {
     // If logged in, we should have user info to send back
     if (req.user) {
@@ -51,33 +55,45 @@ router.post('/login', async (req, res) => {
 // POST to /register
 router.post('/register', async (req, res) => {
   // First, check and make sure the email doesn't already exist
- const query = User.findOne({ email: req.body.email });
- const foundUser = await query.exec();
- if (foundUser) { return res.send(JSON.stringify({ error: 'Email or username already exists' })); }
+  const query = User.findOne({ email: req.body.email });
+  const foundUser = await query.exec();
 
-  if (!foundUser) {
+  if (foundUser) { return res.send(JSON.stringify({ error: 'Email or username already exists' })); }
   // Create a user object to save, using values from incoming JSON
-    const newUser = new User(req.body);
+  if (!foundUser) {
+    // sanitize data
+    const window = (new JSDOM('')).window;
+    const DOMPurify = createDOMPurify(window);
+    const sanitizedBody = {
+      username: DOMPurify.sanitize(req.body.username),
+      email: DOMPurify.sanitize(req.body.email),
+      firstName: DOMPurify.sanitize(req.body.firstName),
+      lastName: DOMPurify.sanitize(req.body.lastName),
+      password: req.body.password,
+    };
 
-    // Save the user via passport's "register" method
+    const newUser = new User(sanitizedBody);
+
+    // Save, via Passport's "register" method, the user
     return User.register(newUser, req.body.password, (err) => {
       // If there's a problem, send back a JSON object with the error
       if (err) {
-        return res.send(JSON.stringify({ error: err }));
+        return res.send(JSON.stringify({ error: err.message }));
       }
-      // otherwise log the user in
+      // Otherwise log them in
       return passport.authenticate('local')(req, res, () => {
-        if(req.user) {
+        // If logged in, we should have user info to send back
+        if (req.user) {
           return res.send(JSON.stringify(req.user));
         }
-        // Otherwise, return an error
-        return res.send(JSON.stringify({error: 'There was an error registering the user..'}));
+        // Otherwise return an error
+        return res.send(JSON.stringify({ error: 'There was an error registering the user' }));
       });
     });
   }
 
-  // return an error if everything fails
-  return res.send(JSON>stringify({ error: 'There was an error registering the user.' }));
+  // return an error if all else fails
+  return res.send(JSON.stringify({ error: 'There was an error registering the user' }));
 });
 
 // POST to savepassword
@@ -107,7 +123,7 @@ router.post('/savepassword', async (req, res) => {
         }
       });
     } else {
-      result = res.send(JSON.stringify({ error: 'Reset hash not found in database.'}));
+      result = res.send(JSON.stringify({ error: 'Reset hash not found in database.' }));
     }
   } catch (err) {
     result = res.send(JSON.stringify({ error: 'There was an error connecting to the database.' }));
@@ -137,11 +153,11 @@ router.post('/saveresethash', async (req, res) => {
 
       // Put together the email
       const emailData = {
-        from: 'Soundshare <postmaster@${appConfig.mailgun.domain}>',
+        from: `CloseBrace <postmaster@${appConfig.mailgun.domain}>`,
         to: foundUser.email,
         subject: 'Reset Your Password',
-        text: `A password reset has been requested for the Soundshare account connected to this email address. If you made this request, please click the following link: https://musiclist.com/account/change-password/${foundUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
-        html: `<p>A password reset has been requested for the Soundshare account connected to this email address. If you made this request, please click the following link: <a href="https://musiclist.com/account/change-password/${foundUser.passwordReset}" target="_blank">https://musiclist.com/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`,
+        text: `A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: https://musiclist.com/account/change-password/${foundUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
+        html: `<p>A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: <a href="https://musiclist.com/account/change-password/${foundUser.passwordReset}" target="_blank">https://musiclist.com/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`,
       };
 
       // Send it
