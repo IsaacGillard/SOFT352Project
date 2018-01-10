@@ -9,7 +9,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const expressSession = require('express-session');
+const expressSession = require('express-session')({
+  secret: 'secret innit',
+  resave: false,
+  saveUninitialized: false
+});
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.babel');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -29,6 +33,7 @@ const app = express();
 
 //Connect to mongoose
 mongoose.connect('mongodb://localhost/musiclist');
+//mongoose.connect('mongodb://IsaacGillard:Jazzandmop1@ds247027.mlab.com:47027/soundshare');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,20 +45,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(expressSession);
+app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Express Session
-const sessionValues = {
-  cookie: {},
-  name: 'sessionId',
-  resave: false,
-  saveUninitialized: true,
-  secret: appConfig.expressSession.secret,
-};
-app.use(expressSession(sessionValues));
+// const sessionValues = {
+//   cookie: {},
+//   name: 'sessionId',
+//   resave: false,
+//   saveUninitialized: true,
+//   secret: appConfig.expressSession.secret,
+// };
+// app.use(expressSession(sessionValues));
 
 // Webpack Server
 if(process.env.NODE_ENV !== 'production') {

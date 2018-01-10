@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlbumsPage component should render as expected 1`] = `
+<div>
+  <div
+    className="row justify-content-center"
+  >
+    <div
+      className="col-10 col-sm-7 col-md-5 col-lg-4"
+    >
+      <AvForm
+        method="get"
+        model={Object {}}
+        onInvalidSubmit={[Function]}
+        onKeyDown={[Function]}
+        onSubmit={[Function]}
+        onValidSubmit={[Function]}
+        tag={[Function]}
+        validationEvent={
+          Array [
+            "onChange",
+            "onInput",
+          ]
+        }
+      >
+        <AvGroup>
+          <h2>
+            <Label
+              for="search"
+              tag="label"
+            >
+              Search Albums
+            </Label>
+          </h2>
+          <p>
+            Find albums you own and add them to your List. You can search by album title or artist name.
+          </p>
+          <AvInput
+            falseValue={false}
+            id="search"
+            name="search"
+            onChange={[Function]}
+            placeholder="Queens of the Stone Age"
+            required={true}
+            tag={[Function]}
+            trueValue={true}
+            type="text"
+            validate={Object {}}
+            validationEvent=""
+            value=""
+          />
+          <AvFeedback>
+            Required
+          </AvFeedback>
+        </AvGroup>
+        <Button
+          color="primary"
+          tag="button"
+        >
+          Search Albums
+        </Button>
+      </AvForm>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-12 col-sm-12"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-sm-12 col-lg-12"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -13,7 +13,7 @@ export default function HomePage(props) {
                 <p>
                   SoundShare lets you save your favourite albums and artists to you own public profile from the Discogs database.
                 </p>
-                <Button id="signUpButton" color="primary" size="lg" tag={Link} to="/account/register">Sign Up</Button>
+                <Button id="reactButton" color="primary" size="lg" tag={Link} to="/account/register">Sign Up</Button>
       </div>
     </div>
   );

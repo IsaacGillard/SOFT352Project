@@ -42,6 +42,7 @@ export default class ArtistsPage extends React.Component {
     );
   }
 
+
   listItems(items) {
     const { authentication, username } = this.props;
     return items.list.map(item =>

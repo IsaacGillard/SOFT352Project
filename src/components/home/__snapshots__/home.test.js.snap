@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage component should render as expected 1`] = `
+<div
+  className="row justify-content-center"
+>
+  <div
+    className="col-10 col-sm-7 col-md-5 col-lg-4"
+  >
+    <h1>
+      Welcome to SoundShare!
+    </h1>
+    <p>
+      SoundShare lets you save your favourite albums and artists to you own public profile from the Discogs database.
+    </p>
+    <Button
+      color="primary"
+      id="reactButton"
+      size="lg"
+      tag={[Function]}
+      to="/account/register"
+    >
+      Sign Up
+    </Button>
+  </div>
+</div>
+`;

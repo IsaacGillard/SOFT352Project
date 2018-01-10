@@ -14,6 +14,6 @@ describe('The User API', () => {
     //expect the array to not be empty
     expect(res.body.length).toBeGreaterThan(0);
     //expect the username to be admin
-    expect(res.body[0].username).toBe('admin');
+    expect(res.body[0].username).toBe('administrator');
   });
 });

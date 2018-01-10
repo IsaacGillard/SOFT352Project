@@ -58,7 +58,7 @@ export default class AlbumsPage extends React.Component {
   generateButton(user, album) {
     return (
       user.albums.indexOf(album.id) < 0 ?
-        <Button color="primary" outline id={album.id} onClick={this.addAlbum}>
+        <Button id="reactButton" color="primary" outline id={album.id} onClick={this.addAlbum}>
           Add To My List
         </Button> :
         <span>Already Listed</span>

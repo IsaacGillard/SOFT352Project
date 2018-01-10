@@ -51,7 +51,7 @@ export default class ArtistsPage extends React.Component {
  generateButton(user, artist) {
     return (
       user.artists.indexOf(artist.id) < 0 ?
-        <Button color="primary" outline id={artist.id} onClick={this.addArtist}>
+        <Button id="reactButton" color="primary" outline id={artist.id} onClick={this.addArtist}>
           Add To My List
         </Button> :
         <span>Already Listed</span>
