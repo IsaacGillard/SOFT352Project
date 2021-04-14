@@ -11,7 +11,7 @@ exports[`HomePage component should render as expected 1`] = `
       Welcome to SoundShare!
     </h1>
     <p>
-      SoundShare lets you save your favourite albums and artists to you own public profile from the Discogs database.
+      SoundShare lets you save your favourite albums and artists to your own public profile from the Discogs database.
     </p>
     <Button
       color="primary"

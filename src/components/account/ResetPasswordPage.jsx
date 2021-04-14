@@ -70,7 +70,7 @@ export default class ResetPasswordPage extends React.Component {
         </div>
       );
     }
-    
+
     return (
       <div className="row justify-content-center">
         <div className="col-10 col-sm-7 col-md-5 col-lg-4">
@@ -86,7 +86,7 @@ export default class ResetPasswordPage extends React.Component {
                 name="email"
                 onChange={this.handleEmailChange}
                 onKeyPress={this.handleKeyPress}
-                placeholder="noreply@musiclist.com"
+                placeholder="noreply@soundshare.com"
                 required
                 type="email"
                 value={this.state.email}

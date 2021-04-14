@@ -55,7 +55,7 @@ export default class Header extends React.Component {
       <header className="wrapper">
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggleNavbar} />
-          <NavbarBrand tag={Link} to="/">Sound Share</NavbarBrand>
+          <NavbarBrand tag={Link} to="/">SoundShare</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>

@@ -11,7 +11,7 @@ export default function HomePage(props) {
       <div className="col-10 col-sm-7 col-md-5 col-lg-4">
         <h1>Welcome to SoundShare!</h1>
                 <p>
-                  SoundShare lets you save your favourite albums and artists to you own public profile from the Discogs database.
+                  SoundShare lets you save your favourite albums and artists to your own public profile from the Discogs database.
                 </p>
                 <Button id="reactButton" color="primary" size="lg" tag={Link} to="/account/register">Sign Up</Button>
       </div>

@@ -42,7 +42,7 @@ export default class RegisterPage extends React.Component {
       <div className="row justify-content-center">
         <div className="col-10 col-sm-7 col-md-5 col-lg-4">
           <p>
-            Want to get started saving your favorite bands to MusicList?
+            Want to get started saving your favorite bands to SoundShare?
             Create an account! All fields are required.
           </p>
           <AvForm onValidSubmit={this.handleValidSubmit}>

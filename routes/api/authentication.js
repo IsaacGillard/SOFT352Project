@@ -1,8 +1,8 @@
 const appConfig = require('../../config.js');
 const crypto = require('crypto');
-//onst createDOMPurify = require('dompurify');
+const createDOMPurify = require('dompurify');
 const express = require('express');
-//const { JSDOM } = require('jsdom');
+const { JSDOM } = require('jsdom');
 const mailgun = require('mailgun-js')({
   apiKey: appConfig.mailgun.apiKey,
   domain: appConfig.mailgun.domain,
@@ -54,13 +54,17 @@ router.post('/login', async (req, res) => {
 
 // POST to /register
 router.post('/register', async (req, res) => {
+  console.log("register submitted");
   // First, check and make sure the email doesn't already exist
   const query = User.findOne({ email: req.body.email });
+  console.log("user check");
   const foundUser = await query.exec();
+  console.log("user check 2");
 
   if (foundUser) { return res.send(JSON.stringify({ error: 'Email or username already exists' })); }
   // Create a user object to save, using values from incoming JSON
   if (!foundUser) {
+    console.log("sanitise");
     // sanitize data
     const window = (new JSDOM('')).window;
     const DOMPurify = createDOMPurify(window);
@@ -73,6 +77,7 @@ router.post('/register', async (req, res) => {
     };
 
     const newUser = new User(sanitizedBody);
+    console.log("new user");
 
     // Save, via Passport's "register" method, the user
     return User.register(newUser, req.body.password, (err) => {
@@ -153,11 +158,11 @@ router.post('/saveresethash', async (req, res) => {
 
       // Put together the email
       const emailData = {
-        from: `CloseBrace <postmaster@${appConfig.mailgun.domain}>`,
+        from: `SoundShare <postmaster@${appConfig.mailgun.domain}>`,
         to: foundUser.email,
         subject: 'Reset Your Password',
-        text: `A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: https://musiclist.com/account/change-password/${foundUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
-        html: `<p>A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: <a href="https://musiclist.com/account/change-password/${foundUser.passwordReset}" target="_blank">https://musiclist.com/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`,
+        text: `A password reset has been requested for the SoundShare account connected to this email address. If you made this request, please click the following link: https://soundshare.com/account/change-password/${foundUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
+        html: `<p>A password reset has been requested for the SoundShare account connected to this email address. If you made this request, please click the following link: <a href="https://soundshare.com/account/change-password/${foundUser.passwordReset}" target="_blank">https://soundshare.com/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`,
       };
 
       // Send it
